@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — agente-videos</title>
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0 auto; max-width: 760px; padding: 48px 24px 80px;
+    font: 16px/1.7 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: #1b2430; background: #fff;
+  }
+  h1 { font-size: 30px; margin: 0 0 4px; }
+  h2 { font-size: 19px; margin: 34px 0 8px; }
+  .fecha { color: #6b7787; margin: 0 0 28px; font-size: 14.5px; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 7px; }
+  a { color: #0b6bcb; }
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e3e8ef;
+           color: #6b7787; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+<p class="fecha">agente-videos · Last updated: 18 August 2026</p>
+
+<p><strong>agente-videos</strong> is a personal, single-user automation tool. It is
+operated by one individual creator to publish that same creator's own original videos to
+that same creator's own social media accounts. It is not offered to the public and has no
+other users.</p>
+
+<h2>1. Information we collect</h2>
+<ul>
+  <li><strong>OAuth tokens.</strong> When the operator authorizes the tool with his own
+    TikTok account, TikTok issues an access token and a refresh token. These are stored as
+    encrypted repository secrets and are used solely to upload videos to that account.</li>
+  <li><strong>Basic profile information</strong> (<code>user.info.basic</code>): open id
+    and display name, returned by TikTok during authorization and used only to confirm
+    that the correct account is connected.</li>
+  <li><strong>Video files and their captions</strong>, created by the operator, which are
+    transmitted to TikTok for publication.</li>
+</ul>
+
+<h2>2. Information we do not collect</h2>
+<ul>
+  <li>No data belonging to any other TikTok user.</li>
+  <li>No followers, comments, messages, analytics, or engagement data.</li>
+  <li>No email addresses, phone numbers, payment information, or location data.</li>
+  <li>No cookies, trackers, or advertising identifiers. This site sets none.</li>
+</ul>
+
+<h2>3. How information is used</h2>
+<p>The only purpose is to upload the operator's own videos to the operator's own accounts.
+Data is never sold, rented, shared with third parties, used for advertising, or used to
+train any model.</p>
+
+<h2>4. Storage and security</h2>
+<p>Tokens are stored as encrypted GitHub Actions secrets in a private repository and are
+never written to logs or committed to source control. Video files are transient: they are
+generated during a workflow run and discarded afterwards.</p>
+
+<h2>5. Retention and deletion</h2>
+<p>Tokens are kept only while the integration is in use. The operator can revoke access at
+any time from TikTok's own settings, under Security and login → Manage app permissions,
+which immediately invalidates the tokens.</p>
+
+<h2>6. Third-party services</h2>
+<p>Videos are transmitted to the platforms the operator publishes to: TikTok, YouTube,
+Instagram and Facebook. Each platform's own privacy policy governs the data once it is
+received.</p>
+
+<h2>7. Children</h2>
+<p>This tool is not directed at children and collects no information from anyone other
+than its single operator.</p>
+
+<h2>8. Changes</h2>
+<p>Any change to this policy will be published on this page with an updated date.</p>
+
+<h2>9. Contact</h2>
+<p>Questions about this policy can be sent to the repository owner through
+<a href="https://github.com/jovninis1-byte">github.com/jovninis1-byte</a>.</p>
+
+<footer>agente-videos — personal automation tool. Not a commercial product.</footer>
+
+</body>
+</html>
