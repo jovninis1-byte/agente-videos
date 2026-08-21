@@ -104,6 +104,11 @@
   <select id="privacidad">
     <option value="">Selecciona una opción</option>
   </select>
+  <p class="nota" style="margin:7px 0 0">
+    Las opciones son las que permite tu cuenta. Mientras esta aplicación no haya pasado
+    la auditoría de contenido, TikTok solo acepta publicaciones privadas
+    (<strong>Solo yo</strong>); cualquier otra opción será rechazada por su API.
+  </p>
 
   <label>Permitir a los usuarios</label>
   <div class="fila" id="fila-comentario">
@@ -297,9 +302,13 @@ async function cargarVideos() {
     sel.innerHTML = '<option value="">No hay videos disponibles</option>';
     return;
   }
+  // Los nombres de index.json son relativos a la carpeta videos/, no a esta página.
+  // Resolverlos contra location.href producía .../tiktok-callback/006.mp4, que no
+  // existe, y TikTok rechazaba la descarga.
+  const base = new URL("videos/", location.href);
   lista.forEach((v) => {
     const o = document.createElement("option");
-    o.value = new URL(v.archivo, location.href).href;
+    o.value = new URL(v.archivo, base).href;
     o.textContent = v.titulo || v.archivo;
     o.dataset.caption = v.caption || "";
     sel.appendChild(o);
@@ -433,8 +442,26 @@ $("btn-publicar").onclick = async () => {
       esc(d.data.publish_id) + "</code><br>Abre la app de TikTok para verlo en tu perfil.";
     mostrar("exito-publicar");
   } else {
-    const msg = (d.error && (d.error.message || d.error.code)) || d.detalle || "Error desconocido";
-    $("error-publicar").textContent = "TikTok rechazó la publicación: " + JSON.stringify(msg);
+    const codigo = (d.error && d.error.code) || "";
+    // Traducciones de los rechazos más comunes: el mensaje que manda TikTok es
+    // siempre el mismo enlace genérico y no dice qué hacer.
+    const explica = {
+      unaudited_client_can_only_post_to_private_accounts:
+        "La aplicación todavía no pasó la auditoría de contenido de TikTok, así que solo " +
+        "acepta publicaciones privadas. Elige «Solo yo» en el paso anterior.",
+      url_ownership_unverified:
+        "El dominio del video no está verificado en la aplicación de TikTok.",
+      spam_risk_too_many_posts:
+        "TikTok bloqueó la publicación por exceso de envíos. Espera un rato.",
+      access_token_invalid:
+        "La sesión caducó. Recarga la página y vuelve a conectar la cuenta.",
+      scope_not_authorized:
+        "La cuenta no concedió el permiso para publicar. Vuelve a conectar y acepta todo.",
+    }[codigo];
+    const msg = (d.error && d.error.message) || d.detalle || "Error desconocido";
+    $("error-publicar").textContent =
+      (explica ? explica + " " : "TikTok rechazó la publicación. ") +
+      (codigo ? "(" + codigo + ")" : msg);
     mostrar("error-publicar");
     btn.disabled = false;
   }
