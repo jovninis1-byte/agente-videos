@@ -3,81 +3,90 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Autorización de TikTok</title>
+<title>agente-videos</title>
+<meta name="description" content="agente-videos es una herramienta que crea y publica automáticamente videos cortos educativos en español en las cuentas propias de su titular.">
 <style>
-  :root { color-scheme: dark; }
-  body {
-    margin: 0; min-height: 100vh; display: grid; place-items: center;
-    background: #0b0e14; color: #e8ecf1;
-    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
-    padding: 24px;
-  }
-  .caja {
-    max-width: 640px; width: 100%;
-    background: #131824; border: 1px solid #26304a; border-radius: 14px;
-    padding: 32px;
-  }
-  h1 { font-size: 21px; margin: 0 0 6px; }
-  p  { color: #9aa7bd; margin: 0 0 20px; }
-  code#code {
-    display: block; word-break: break-all; user-select: all;
-    background: #0b0e14; border: 1px solid #2d3a57;
-    border-radius: 10px; padding: 16px; margin-bottom: 16px;
-    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
-    font-size: 14px; color: #4de1c1;
-  }
-  button {
-    background: #4de1c1; color: #08111a; border: 0; border-radius: 9px;
-    padding: 11px 20px; font-size: 15px; font-weight: 600; cursor: pointer;
-  }
-  button:hover { filter: brightness(1.08); }
-  .error { color: #ff8a8a; }
-  .nota { font-size: 13.5px; color: #7c8aa3; margin: 18px 0 0; }
+:root{--bg:#0d0d10;--fg:#f2f2f5;--muted:#a5a5b3;--line:#26262e;--accent:#25f4ee}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px}
+header{border-bottom:1px solid var(--line);padding:56px 0 40px}
+h1{font-size:38px;line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+.tag{color:var(--muted);font-size:18px;margin:0}
+nav{margin-top:28px;display:flex;gap:22px;flex-wrap:wrap}
+nav a{color:var(--accent);text-decoration:none;font-weight:600;border-bottom:1px solid transparent}
+nav a:hover{border-bottom-color:var(--accent)}
+section{padding:38px 0;border-bottom:1px solid var(--line)}
+h2{font-size:22px;margin:0 0 14px;letter-spacing:-.01em}
+p{margin:0 0 14px;color:#dcdce4}
+ul{margin:0 0 14px;padding-left:20px;color:#dcdce4}
+li{margin-bottom:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:18px}
+.card{border:1px solid var(--line);border-radius:12px;padding:18px}
+.card h3{margin:0 0 8px;font-size:16px}
+.card p{margin:0;font-size:14px;color:var(--muted)}
+footer{padding:34px 0 60px;color:var(--muted);font-size:14px}
+footer a{color:var(--accent)}
+code{background:#1a1a20;padding:2px 6px;border-radius:5px;font-size:13px}
 </style>
 </head>
 <body>
-  <div class="caja">
-    <h1 id="titulo">Autorización completada</h1>
-    <p id="sub">Copia este código y pégalo en el script <code>obtener_token_tiktok.py</code>.</p>
-    <code id="code">…</code>
-    <button id="btn" type="button">Copiar código</button>
-    <p class="nota">El código sirve una sola vez y caduca en pocos minutos.
-      Si falla, vuelve a ejecutar el script para generar un enlace nuevo.</p>
+<div class="wrap">
+
+<header>
+  <h1>agente-videos</h1>
+  <p class="tag">Herramienta personal que crea y publica videos cortos educativos en español, de forma automática, en las cuentas propias de su titular.</p>
+  <nav>
+    <a href="./privacy-policy.html">Privacy Policy</a>
+    <a href="./terms-of-service.html">Terms of Service</a>
+    <a href="mailto:jovninis1@gmail.com">Contacto</a>
+  </nav>
+</header>
+
+<section>
+  <h2>Qué es agente-videos</h2>
+  <p><strong>agente-videos</strong> es una aplicación de uso personal que automatiza el ciclo completo de producción de video corto: redacta el guion, genera la locución, arma el video con material propio o de bancos libres, y lo publica en las redes sociales del propio titular de la cuenta.</p>
+  <p>No es un servicio abierto al público, no aloja contenido de terceros y no publica en cuentas que no pertenezcan a la persona que autoriza la aplicación.</p>
+</section>
+
+<section>
+  <h2>Cómo funciona</h2>
+  <div class="grid">
+    <div class="card"><h3>1. Guion</h3><p>Se genera un guion breve en español sobre el tema elegido.</p></div>
+    <div class="card"><h3>2. Voz y video</h3><p>Se sintetiza la locución y se monta el video vertical con ffmpeg.</p></div>
+    <div class="card"><h3>3. Autorización</h3><p>El titular conecta su cuenta de TikTok mediante el inicio de sesión oficial de TikTok (OAuth).</p></div>
+    <div class="card"><h3>4. Publicación</h3><p>El video se envía a TikTok con la Content Posting API a la cuenta autorizada.</p></div>
   </div>
+</section>
 
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get("code");
-  const error = params.get("error");
-  const elCode = document.getElementById("code");
-  const btn = document.getElementById("btn");
+<section>
+  <h2>Uso de la API de TikTok</h2>
+  <p>agente-videos utiliza las siguientes funciones de la plataforma de TikTok, siempre con la autorización explícita del titular de la cuenta:</p>
+  <ul>
+    <li><strong>Login Kit</strong> — para que el titular inicie sesión y otorgue permisos a la aplicación.</li>
+    <li><strong>Content Posting API</strong> — para subir y publicar videos en la cuenta autorizada.</li>
+    <li><code>user.info.basic</code> — para mostrar el nombre y avatar de la cuenta conectada y confirmar en cuál se publicará.</li>
+    <li><code>video.upload</code> y <code>video.publish</code> — para cargar y publicar el video generado.</li>
+  </ul>
+  <p>El titular puede revocar el acceso en cualquier momento desde los ajustes de seguridad de su cuenta de TikTok, y la aplicación deja de tener cualquier acceso de inmediato.</p>
+</section>
 
-  if (code) {
-    elCode.textContent = decodeURIComponent(code);
-  } else if (error) {
-    document.getElementById("titulo").textContent = "La autorización falló";
-    document.getElementById("titulo").className = "error";
-    document.getElementById("sub").textContent =
-      params.get("error_description") || "TikTok devolvió un error.";
-    elCode.textContent = error;
-    btn.style.display = "none";
-  } else {
-    document.getElementById("titulo").textContent = "Página de retorno de TikTok";
-    document.getElementById("sub").textContent =
-      "Esta página recibe el código de autorización. Llega aquí desde el enlace que genera el script.";
-    elCode.style.display = "none";
-    btn.style.display = "none";
-  }
+<section>
+  <h2>Datos que maneja</h2>
+  <p>agente-videos guarda únicamente el token de acceso emitido por TikTok y el identificador público de la cuenta conectada, con el fin de poder publicar. No recoge datos de otras personas, no vende información y no comparte datos con terceros. El detalle completo está en la <a href="./privacy-policy.html" style="color:var(--accent)">Privacy Policy</a>.</p>
+</section>
 
-  btn.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(elCode.textContent);
-      btn.textContent = "Copiado";
-      setTimeout(() => (btn.textContent = "Copiar código"), 1800);
-    } catch {
-      btn.textContent = "Selecciónalo y copia a mano";
-    }
-  });
-</script>
+<section>
+  <h2>Contacto</h2>
+  <p>Responsable: Alfredo Jovnini · <a href="mailto:jovninis1@gmail.com" style="color:var(--accent)">jovninis1@gmail.com</a></p>
+  <p>Cualquier duda sobre el funcionamiento, los datos o la eliminación de información puede dirigirse a ese correo.</p>
+</section>
+
+<footer>
+  <p>© 2026 agente-videos · <a href="./privacy-policy.html">Privacy Policy</a> · <a href="./terms-of-service.html">Terms of Service</a></p>
+  <p>agente-videos no está afiliado, patrocinado ni respaldado por TikTok o ByteDance.</p>
+</footer>
+
+</div>
 </body>
 </html>
