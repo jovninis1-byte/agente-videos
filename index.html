@@ -33,6 +33,12 @@ code{background:#1a1a20;padding:2px 6px;border-radius:5px;font-size:13px}
 <body>
 <div class="wrap">
 
+<div id="auth-box" style="display:none;border:1px solid var(--line);border-radius:12px;padding:22px;margin-top:32px;background:#131824">
+  <h2 id="auth-title" style="margin:0 0 6px;font-size:19px">Autorización completada</h2>
+  <p id="auth-sub" style="margin:0 0 16px;color:var(--muted);font-size:14px">Copia este código y pégalo en el script de obtención de token.</p>
+  <code id="auth-code" style="display:block;word-break:break-all;user-select:all;padding:14px;background:#0b0e14;border:1px solid #2d3a57;border-radius:9px;color:#4de1c1;font-size:13px">…</code>
+</div>
+
 <header>
   <h1>agente-videos</h1>
   <p class="tag">Herramienta personal que crea y publica videos cortos educativos en español, de forma automática, en las cuentas propias de su titular.</p>
@@ -88,5 +94,23 @@ code{background:#1a1a20;padding:2px 6px;border-radius:5px;font-size:13px}
 </footer>
 
 </div>
+
+<script>
+(function () {
+  var p = new URLSearchParams(window.location.search);
+  var code = p.get("code");
+  var err = p.get("error");
+  if (!code && !err) return;
+  var box = document.getElementById("auth-box");
+  box.style.display = "block";
+  if (code) {
+    document.getElementById("auth-code").textContent = decodeURIComponent(code);
+  } else {
+    document.getElementById("auth-title").textContent = "La autorización falló";
+    document.getElementById("auth-sub").textContent = p.get("error_description") || "TikTok devolvió un error.";
+    document.getElementById("auth-code").textContent = err;
+  }
+})();
+</script>
 </body>
 </html>
